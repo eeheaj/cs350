@@ -13,15 +13,31 @@ module comp_8_tb;
 
     integer i,j; 
 
-    assign {A, B} = i[7:0];
+    assign {A, B} = i[15:0];
     assign {prevEQ, prevGT} = j[1:0];
 
     initial begin
         for (j = 0; j<4; j = j+1) begin
-            for (i = 0; i<256; i = i+1) begin
-                #20;
-                $display("prevEQ=%b, prevGT=%b, A=%b, B=%b => EQ=%b, GT=%b", prevEQ, prevGT, A, B, EQ, GT);
-            end
+            case (j)
+                2'b00: begin
+                    #20;
+                    $display("prevEQ=%b, prevGT=%b, A=%b, B=%b => EQ=%b, GT=%b", prevEQ, prevGT, A, B, EQ, GT);
+                end
+                2'b01: begin
+                    #20;
+                    $display("prevEQ=%b, prevGT=%b, A=%b, B=%b => EQ=%b, GT=%b", prevEQ, prevGT, A, B, EQ, GT);
+                end
+                2'b10: begin
+                    for (i = 0; i<65536; i = i+1) begin
+                        #20;
+                        $display("prevEQ=%b, prevGT=%b, A=%b, B=%b => EQ=%b, GT=%b", prevEQ, prevGT, A, B, EQ, GT);
+                    end
+                end
+                2'b11: begin
+                    #20;
+                    $display("prevEQ=%b, prevGT=%b, A=%b, B=%b => EQ=%b, GT=%b", prevEQ, prevGT, A, B, EQ, GT);
+                end
+            endcase
         end
 
         $finish; //what does this do>
